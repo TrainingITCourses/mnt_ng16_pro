@@ -1,6 +1,16 @@
 {
   "name": "astro-bookings",
-  "version": "0.0.0",
+  "version": "16.2.0",
+  "description": "Space travel agency",
+  "author": {
+    "name": "Alberto Basalo",
+    "url": "https://albertobasalo.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CursosAlbertoBasalo/mnt_ng16_pro"
+  },
+  "homepage": "https://albertobasalo.notion.site/Angular-Pro-V15-ef404debd5d244dca1a65588b32f4cdb",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -1,0 +1,11 @@
+- write clean typescript code
+- document public classes and functions
+- avoid nesting by using early returns and dictionaries ro maps..
+- respect eslint and prettier rules
+- plan your code before implementing it
+- review the plan and fix it if needed
+- implement all the code
+- create files if needed
+- fix any error that the code may have
+- reviews the code and refactor it if needed
+- append a git commit message to the latest log file at changes/

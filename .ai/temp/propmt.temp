@@ -1,0 +1,9 @@
+You are an AI expert.  
+
+I want a prompt for an LLM code agent to add log capabilities to a NestJs app. 
+
+Read the whole @Codebase that currently has log capabilities. 
+
+Take your time and think step by step. 
+
+When you are done, return a plain text prompt for the LLM code agent to add log capabilities to the app. Do not include code in the prompt.Only the instructions for the LLM code agent.

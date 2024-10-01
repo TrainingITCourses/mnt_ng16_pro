@@ -39,25 +39,32 @@ ng add @angular-eslint/schematics
 npm i prettier prettier-eslint eslint-config-prettier eslint-plugin-prettier -D
 ```
 
-- Add the following to the `eslintrc.json` file:
+- Add the following, at least, to the `eslintrc.json` file:
 
 ```json
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@angular-eslint/recommended",
-    "plugin:@angular-eslint/template/process-inline-templates",
-    "plugin:prettier/recommended"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "tsconfig.app.json"
-  },
-  "rules": {
-    "prettier/prettier": "warn",
-    "end-of-line": "auto"
-  }
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": "tsconfig.app.json"
+      },
+      "rules": {
+        "prettier/prettier": "warn",
+        "end-of-line": "auto"
+      }
+    }
+  ]
 }
 ```
 
@@ -144,6 +151,7 @@ npm i prettier prettier-eslint eslint-config-prettier eslint-plugin-prettier -D
   - Fix an expected problem (ex. roll back a transaction, create a file, etc.)
   - Add context and rethrow.
   - Do not hide errors, correct or propagate them.
+  - Log and report them.
 
 ### Logging
 
@@ -170,32 +178,43 @@ npm i prettier prettier-eslint eslint-config-prettier eslint-plugin-prettier -D
 
 ## Specific to Angular Classic
 
-### Folders structure
+### Folder and Module structure
 
-Organization principles:
+Organize the code following the principles of modularity and separation of concerns.
 
-- Eager versus lazy loading.
-- Shared versus domain specific.
+| **Criteria** | **Option A** | **Option B**    |
+| ------------ | ------------ | --------------- |
+| **Loading**  | Eager        | Lazy            |
+| **Domain**   | Shared       | Domain-Specific |
+| **Modules**  | Declarative  | Injectable      |
 
 - Start with the following folder/module structure:
 
-  - `src/`
-    - `routes/`
-      - `home/`
-      - `about/`
+  - `src/app/`
     - `core/`
       - `auth/`
       - `layout/`
       - `global/`
       - `log/`
+    - `routes/`
+      - `home/`
+      - `about/`
     - `shared/`
       - `domain/`
       - `ui/`
       - `utils/`
 
-- Add a path alias in the `tsconfig.json` file
+- Add a path alias in the `tsconfig.json` file to simplify imports.
 
-#### App Module
+> Example:
+
+```json
+"paths": {
+  "@core/*": ["src/app/core/*"],
+  "@shared/*": ["src/app/shared/*"],
+  "@routes/*": ["src/app/routes/*"]
+}
+```
 
 #### Core Module
 
@@ -217,6 +236,7 @@ ng generate service core/log/logger
 
 ```bash
 ng generate module shared
+ng generate class shared/domain/user.dto
 ng generate component shared/ui/button --export
 ```
 
@@ -224,5 +244,59 @@ ng generate component shared/ui/button --export
 
 ```bash
 ng generate module routes/home --route=home --module=app.module
+ng generate service routes/home
+ng generate component routes/home-banner
+ng generate component routes/home-content
 ng generate module routes/about --route=about --module=app.module
 ```
+
+#### App Module
+
+- Keep it as simple as possible.
+- AppRoutingModule using loadChildren.
+
+> Example:
+
+```typescript
+const routes: Routes = [
+  {
+    path: "",
+    loadChildren: () => import("./routes/home/home.module").then((m) => m.HomeModule),
+  },
+  {
+    path: "about",
+    loadChildren: () => import("./routes/about/about.module").then((m) => m.AboutModule),
+  },
+];
+```
+
+### Component (Declarative) structure
+
+Use the Container/Presentational Component pattern.
+
+- Container:
+
+  - Logic: Events, data, business rules, etc.
+  - Connects the view to the model.
+  - Interactions with the outside world.
+  - Depends on injected services.
+
+- Presentational(s):
+
+  - UI: HTML, CSS, etc.
+  - Only logic related to the UI .
+  - Receives data via `@Input()` bindings
+  - Raises events via `@Output()` bindings.
+
+- Shared UI:
+  - Reuseable Presentational components.
+  - Use the `shared/ui` folder.
+  - Must be exported from the `shared` module.
+
+### Service (Injectable) structure
+
+- Use one service for each Container as a facade.
+- Use the default _provided in root_ even for local services.
+- Extract common business logic to shared domain services.
+- Extract generic logic to shared utility functions.
+- Use core domain for interceptors, guards and global services.

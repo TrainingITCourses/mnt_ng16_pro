@@ -1,0 +1,14 @@
+<header>
+  <nav>
+    <ul>
+      <span>
+        {{ title }}
+      </span>
+    </ul>
+    <ul>
+      <li><app-link [link]="[]" text="Home"></app-link></li>
+      <li><app-link [link]="['/about']" text="About"></app-link></li>
+      <li><app-link [link]="['/user', 'login']" text="Login"></app-link></li>
+    </ul>
+  </nav>
+</header>

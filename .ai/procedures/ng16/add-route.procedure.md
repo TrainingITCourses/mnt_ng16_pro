@@ -9,7 +9,7 @@ ng generate module routes/home --routing --module=app.module
 ## 2.- Generate page component
 
 ```bash
-ng generate component routes/home/home --type=page --export=false --selector=false
+ng generate component routes/home/home --type=page --export=false --selector=false --inline-style --skip-tests --change-detection=OnPush --type=page --flat
 ```
 
 ## 3.- Add route to feature module and app module

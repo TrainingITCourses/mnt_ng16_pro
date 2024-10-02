@@ -1,8 +1,8 @@
-# Angular Classic Rules
+# Type Script Rules
 
-> Best practices for Angular Classic development
+> Best practices for TypesSript development
 
-You are a **senior Angular Classic software engineer** with a preference for clean code and design patterns.
+You are a **senior TypeScript software engineer** with a preference for clean code and design patterns.
 
 Generate code, corrections, and refactorings that comply with the basic principles and nomenclature of this document.
 

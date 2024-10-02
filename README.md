@@ -4,7 +4,7 @@ Curso de Angular Clásico Avanzado para Montrel
 
 ## Repository
 
-https://github.com/CursosAlbertoBasalo/mnt_ng16_pro
+https://github.com/TrainingITCourses/mnt_ng16_pro
 
 ## Curso
 

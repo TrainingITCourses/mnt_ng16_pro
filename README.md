@@ -1,4 +1,4 @@
-# mnt_ng16_pro
+# Montrel Angular Clásico Avanzado
 
 Curso de Angular Clásico Avanzado para Montrel
 

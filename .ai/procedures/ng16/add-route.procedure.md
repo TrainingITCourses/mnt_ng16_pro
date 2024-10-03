@@ -9,7 +9,7 @@ ng generate module routes/home --routing --module=app.module
 ## 2.- Generate page component
 
 ```bash
-ng generate component routes/home/home --type=page --export=false --selector=false --inline-style --skip-tests --change-detection=OnPush --type=page --flat
+ng generate component routes/home/home --type=page --export=false --skip-selector --inline-style --skip-tests --change-detection=OnPush --flat
 ```
 
 ## 3.- Add route to feature module and app module
@@ -30,11 +30,11 @@ const routes: Routes = [
 ## 4.- Generate service
 
 ```bash
-ng generate service routes/home
+ng generate service routes/home/home --skip-tests
 ```
 
 ## 5.- Generate presenter component
 
 ```bash
-ng generate component routes/home/home --export=false
+ng generate component routes/home/banner --export=false --inline-style --skip-tests --change-detection=OnPush --flat
 ```

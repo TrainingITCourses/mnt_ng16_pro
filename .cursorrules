@@ -11,31 +11,57 @@ Generate code, corrections, and refactorings that comply with the basic principl
 1. Generate **clean**, well-structured, and easily maintainable code.
 2. Implement **tests** for all the code you generate.
 3. Include **robust** error handling and proper logging.
-4. Add **comments** to public code explaining the _"why"_ rather than the _"what"_.
+4. Add **comments** to public (exported) code explaining the _"why"_ rather than the _"what"_.
 
 ## TypeScript Guidelines
 
 ### Type Annotations
 
 - Annotate every variable, constant, parameter, and return value explicitly with its **type**.
-- Avoid the `any` type; always declare the **strict** and narrow _TypeScript_ type.
-- Avoid `null`, in case of no value use `undefined`, or better yet, a value that represent the case.
-- Avoid `Enum` and use Union types instead.
+- Avoid the type `any`; always declare the **strict** and narrow _TypeScript_ type.
+- Enable `strictNullChecks` in `tsconfig.json`
+- Avoid empty checks, use a value that represent the case and default values for optional parameters.
+- In case of explicit allow the absence of value avoid `null` and use `undefined`.
+- Avoid `Enum` definitions and use Union types instead.
+- Create the necessary types to define the every data structure.
+- Prefer `type` over `interface` for data definitions.
+- Use union types over enums.
+- **Don't abuse primitive types** and encapsulate data in composite types.
+- When data needs **validation**, use the ValueObject pattern.
+  - Implement it via decorators using the `class-validator` library.
+- Prefer **immutability** for data.
+  - Use `as const` for literals and objects that don't change.
+  - Use `readonly` for avoid change properties.
 
-### Code Style
+> Examples of good type annotations:
 
-- Use PascalCase for classes, types and interfaces.
-- Use camelCase for public variables, methods and functions.
-- Use #camelCase for private variables and methods.
-- Use UPPERCASE for environment variables.
-- Use kebab-case for file and directory names.
-- One export per file.
-
-### Comments
-
-- Use **JSDoc** to document public surface for classes and modules.
-- Do not document private members.
-- Do not add line comments, the code should be self explanatory.
+```typescript
+let name: string = "";
+let age: number | undefined = undefined;
+function sayHello(name: string, greeting: string = "Hello"): void {
+  console.log(`${greeting}, ${name}!`);
+}
+type Gender = "male" | "female" | "other";
+type User = {
+  name: string;
+  age?: number;
+  email: string;
+  gender: Gender;
+};
+const EMPTY_USER: User = { name, age, email: "", gender: "other" } as const;
+const ADULT_AGE: number = 18;
+class Age {
+  static readonly ADULT_AGE = 18;
+  constructor(public readonly value: number) {
+    if (value < 0) {
+      throw new Error("Age cannot be negative");
+    }
+  }
+  isAdult(): boolean {
+    return this.value >= Age.ADULT_AGE;
+  }
+}
+```
 
 ### Naming Conventions
 
@@ -50,6 +76,86 @@ Generate code, corrections, and refactorings that comply with the basic principl
 - Use verbs for boolean variables. Example: `isLoading`, `hasError`, `canDelete`, etc.
 - Use complete words instead of abbreviations and correct spelling.
 - Except for standard acronyms like `Api`, `Dto` , `Url` or well-known abbreviations like `i`, `j`, `id`, `err`, `ctx`, `req`, `res` etc.
+
+> Examples of good code style:
+
+```typescript
+const MY_CONSTANT = 5;
+export class MyClass {
+  myProperty = MY_CONSTANT;
+  #hasError = false;
+
+  myMethod(): void {
+    if (this.#canDoSomething()) {
+      try {
+        this.#myPrivateMethod();
+      } catch (err) {
+        console.error(err);
+        this.hasError = true;
+      }
+    }
+  }
+  #myPrivateMethod(): void {
+    if (this.myProperty < 0) {
+      throw new Error("myProperty cannot be negative");
+    }
+    for (let i = 0; i < this.myProperty; i++) {
+      console.log(i);
+    }
+  }
+  #canDoSomething(): boolean {
+    return true;
+  }
+}
+```
+
+### Comments
+
+- Use **JSDoc** to document public surface for classes and modules.
+- Do not document private members.
+- Do not add line comments, the code should be self explanatory.
+
+> Examples of good JSDoc comments:
+
+```typescript
+/**
+ * Represents a user in the system.
+ * @extends BaseEntity using its id as unique identifier.
+ */
+export class User extends BaseEntity {
+  #apiUrl = "https://api.example.com/users";
+
+  /**
+   * Creates an instance of User.
+   * @param {string} name - The name of the user.
+   * @param {number} age - The age of the user.
+   * @param {string} email - The email of the user.
+   * @param {string} gender - The gender of the user.
+   */
+  constructor(name: string, age: number, email: string, gender: Gender) {
+    this.name = name;
+    this.age = age;
+    this.email = email;
+    this.gender = gender;
+  }
+
+  /**
+   * Sends a message to the user.
+   * @param {string} message - The message to send.
+   * @throws {Error} If the message is too long.
+   */
+  sendMessage(message: string): void {
+    if (message.length > 100) {
+      throw new Error("Message too long. Max length is 100 characters.");
+    }
+    this.#callApi();
+  }
+
+  #callApi(): void {
+    console.log(`Calling API: ${this.#apiUrl} for user ${this.name}`);
+  }
+}
+```
 
 ### Functions and Methods
 
@@ -75,20 +181,39 @@ Generate code, corrections, and refactorings that comply with the basic principl
   - Declare necessary types for input arguments and output.
 - Use a single level of abstraction.
 
-### Data and Types
+> Examples of good code style:
 
-- Avoid use of `null` and reduce the use of `undefined` by creating a value that represents the absence of a value.
-- Create the necessary types to define the every data structure.
-- Prefer `type` over `interface` for data definitions.
-- Use union types over enums.
-- Use `as const` for literals that don't change.
-- Use `readonly` for data that doesn't change.
-- **Don't abuse primitive types** and encapsulate data in composite types.
-- When data needs **validation**, use the ValueObject pattern.
-  - Implement it via decorators using the `class-validator` library.
-- Prefer **immutability** for data.
-  - Use readonly for data that doesn't change.
-  - Use as const for literals that don't change.
+```typescript
+function calculateTotal(items: Item[]): number {
+  return items.reduce((total: number, item: Item) => total + item.price * item.quantity, 0);
+}
+
+function processItems(items: Item[]): void {
+  const total: number = calculateTotal(items);
+  console.log(`Total: ${total}`);
+}
+
+type UserMessage = {
+  user: User;
+  message: string;
+};
+
+type ApiResponse = {
+  success: boolean;
+  message: string;
+};
+
+function sendMessageToUser(userMessage: UserMessage): ApiResponse {
+  if (!userMessage.user || !userMessage.message) {
+    return { success: false, message: "Invalid user or message" };
+  }
+  if (userMessage.user.age < 18) {
+    return { success: false, message: "User is too young to receive messages" };
+  }
+  sendMessage(userMessage.message);
+  return { success: true, message: "Message sent" };
+}
+```
 
 ### Classes
 
@@ -115,6 +240,40 @@ Generate code, corrections, and refactorings that comply with the basic principl
   - Add context and rethrow.
   - Do not hide errors, correct or propagate them.
   - Log and report them.
+
+> Example of robust code:
+
+```typescript
+function calculateAveragePrice(items: Item[]): number {
+  if (items.length === 0) {
+    throw new Error("No items to calculate average price");
+  }
+  const totalPrice = items.reduce((total: number, item: Item) => total + item.price, 0);
+  const averagePrice = totalPrice / items.length;
+  return averagePrice;
+}
+function writeReport(reportEntry: string): void {
+  const reportPath = path.join(__dirname, "report.txt");
+  if (fs.existsSync(reportPath)) {
+    fs.appendFileSync(reportPath, reportEntry);
+  } else {
+    console.warn("Report file not found. Skipping write.");
+  }
+}
+function reportAveragePrice(): void {
+  const items = [
+    { price: 10, quantity: 2 },
+    { price: 20, quantity: 1 },
+    { price: 30, quantity: 3 },
+  ];
+  const averagePrice = calculateAveragePrice(items);
+  writeReport(`${new Date().toISOString()} Average price: ${averagePrice}`);
+}
+function globalErrorHandler(error: Error): void {
+  console.error(error);
+  // Inform the user
+}
+```
 
 ### Logging
 

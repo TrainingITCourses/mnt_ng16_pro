@@ -8,4 +8,4 @@ import { LinkAtom } from './link.atom';
   imports: [CommonModule, RouterModule],
   exports: [LinkAtom],
 })
-export class AtomsModule {}
+export class UiModule {}

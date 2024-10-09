@@ -1,1 +1,4 @@
-<app-banner [nextLaunches]="nextLaunches"></app-banner>
+<app-page-header title="Welcome to AstroBookings"></app-page-header>
+<div *ngIf="(nextLaunches$ | async) as nextLaunches">
+  <app-banner [nextLaunches]="nextLaunches"></app-banner>
+</div>

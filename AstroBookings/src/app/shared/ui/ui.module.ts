@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LinkAtom } from './link.atom';
 import { PageHeaderBlock } from './page-header.block';
+import { ButtonAtom } from './button.atom';
 
 @NgModule({
-  declarations: [LinkAtom, PageHeaderBlock],
+  declarations: [LinkAtom, PageHeaderBlock, ButtonAtom],
   imports: [CommonModule, RouterModule],
   exports: [LinkAtom, PageHeaderBlock],
 })

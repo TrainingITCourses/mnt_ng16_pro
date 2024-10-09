@@ -1,0 +1,68 @@
+Modules:
+App
+Core
+Layout
+Atoms
+-Home
+
+Initial Chunk Files           | Names                   |  Raw Size | Estimated Transfer Size
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+styles.6f32346032ee4688.css   | styles                  |  79.71 kB |                 9.69 kB
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+styles.6f32346032ee4688.css   | styles                  |  79.71 kB |                 9.69 kB
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+styles.6f32346032ee4688.css   | styles                  |  79.71 kB |                 9.69 kB
+main.d28d11ce2bba5cdf.js      | main                    | 217.82 kB |                59.29 kB
+styles.6f32346032ee4688.css   | styles                  |  79.71 kB |                 9.69 kB
+styles.6f32346032ee4688.css   | styles                  |  79.71 kB |                 9.69 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+
+                              | Initial Total           | 333.20 kB |                80.86 kB
+
+Lazy Chunk Files              | Names                   |  Raw Size | Estimated Transfer Size
+253.66fde91ab079b957.js       | routes-home-home-module |   1.07 kB |               413 bytes
+
+Build at: 2024-10-09T07:52:28.861Z - Hash: 77923dcca51045e6 - Time: 15640ms
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+
+                              | Initial Total           | 333.20 kB |                80.86 kB
+
+Lazy Chunk Files              | Names                   |  Raw Size | Estimated Transfer Size
+253.66fde91ab079b957.js       | routes-home-home-module |   1.07 kB |               413 bytes
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+
+                              | Initial Total           | 333.20 kB |                80.86 kB
+
+Lazy Chunk Files              | Names                   |  Raw Size | Estimated Transfer Size
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+
+                              | Initial Total           | 333.20 kB |                80.86 kB
+
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+
+                              | Initial Total           | 333.20 kB |                80.86 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+polyfills.0f048615ef47444a.js | polyfills               |  33.03 kB |                10.64 kB
+runtime.67c45b4159e6e3f5.js   | runtime                 |   2.64 kB |                 1.24 kB
+
+                              | Initial Total           | 333.20 kB |                80.86 kB
+
+Lazy Chunk Files              | Names                   |  Raw Size | Estimated Transfer Size
+253.66fde91ab079b957.js       | routes-home-home-module |   1.07 kB |               413 bytes
+
+Build at: 2024-10-09T07:52:28.861Z - Hash: 77923dcca51045e6 - Time: 15640ms

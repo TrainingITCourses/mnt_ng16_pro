@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { UiModule } from 'src/app/shared/ui/ui.module';
-import { FooterComponent } from './footer.component';
-import { HeaderComponent } from './header.component';
+import { FooterWidget } from './footer.widget';
+import { HeaderWidget } from './header.widget';
 
 @NgModule({
-  imports: [CommonModule, UiModule],
-  declarations: [HeaderComponent, FooterComponent],
-  exports: [HeaderComponent, FooterComponent],
+  declarations: [HeaderWidget, FooterWidget],
+  imports: [CommonModule, RouterModule, UiModule],
+  exports: [HeaderWidget, FooterWidget],
 })
 export class LayoutModule {}

@@ -1,1 +1,8 @@
-<h1>Home banner</h1>
+<app-page-header title="Home"></app-page-header>
+
+<section>
+  <h2>Next Launches</h2>
+  <div role="group">
+    <button *ngFor="let launch of nextLaunches">🚀 {{ launch.mission }}</button>
+  </div>
+</section>

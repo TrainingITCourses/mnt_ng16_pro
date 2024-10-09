@@ -1,0 +1,6 @@
+<app-page-header title="Register"></app-page-header>
+
+<app-register-form
+  (register)="onRegister($event.username, $event.email, $event.password)"
+></app-register-form>
+<a routerLink="/login">Already have an account? Login here</a>

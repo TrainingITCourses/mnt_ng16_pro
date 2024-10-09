@@ -5,7 +5,17 @@
   "projects": {
     "AstroBookings": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "schematics": {
+        "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "flat": true,
+          "inlineStyle": true,
+          "inlineTemplate": true,
+          "skipTests": true,
+          "standalone": false
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

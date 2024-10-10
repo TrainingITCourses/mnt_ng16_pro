@@ -2,6 +2,9 @@
 
 ## Modules
 
+- Eager Modules (Red)
+- Lazy Modules (Purple)
+
 ```mermaid
 graph TD
     App --> Core
@@ -26,6 +29,14 @@ graph TD
 ```
 
 ## Components
+
+- Smart Components (Green)
+
+- Dumb Components (Blue)
+
+- Eager Components (Red border)
+
+- Lazy Components (Purple border)
 
 ```mermaid
 graph TD

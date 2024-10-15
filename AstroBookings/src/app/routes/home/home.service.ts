@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { LaunchDto } from '@app/models/launch.dto';
+import { LaunchesRepository } from '@app/services/launches.repository';
 import { Observable } from 'rxjs';
-import { LaunchDto } from 'src/app/shared/models/launch.dto';
-import { LaunchesRepository } from 'src/app/shared/services/launches.repository';
 
 @Injectable({
   providedIn: 'root',

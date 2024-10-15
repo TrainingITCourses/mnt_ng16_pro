@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { LaunchDto } from '@app/models/launch.dto';
 import { Observable } from 'rxjs';
-import { LaunchDto } from 'src/app/shared/models/launch.dto';
 import { HomeService } from './home.service';
 
 @Component({

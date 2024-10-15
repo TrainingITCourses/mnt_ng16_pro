@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { LaunchDto } from 'src/app/shared/models/launch.dto';
+import { LaunchDto } from '@app/models/launch.dto';
 
 @Component({
   selector: 'app-banner',

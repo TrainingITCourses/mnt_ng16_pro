@@ -10,6 +10,6 @@ export class HomeService {
   constructor(private readonly launchesRepository: LaunchesRepository) {}
 
   loadNextLaunches$(): Observable<LaunchDto[]> {
-    return this.launchesRepository.getNextLaunches$();
+    return this.launchesRepository.getLaunchesByStatus$('scheduled');
   }
 }

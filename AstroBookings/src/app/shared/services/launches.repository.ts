@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { LaunchDto } from '../models/launch.dto';
+import { LaunchDto, LaunchStatus } from '../models/launch.dto';
 
 // npm run ng -- g s shared/services/launches-repository
 
@@ -8,7 +8,6 @@ import { LaunchDto } from '../models/launch.dto';
   providedIn: 'root',
 })
 export class LaunchesRepository {
-  // toDo: $ suffix
   private readonly launches: LaunchDto[] = [
     {
       id: '1',
@@ -30,9 +29,19 @@ export class LaunchesRepository {
       pricePerSeat: 200,
       status: 'scheduled',
     },
+    {
+      id: '3',
+      agencyId: '3',
+      rocketId: '3',
+      date: new Date(2037, 11, 3),
+      mission: 'Jupiter Mission',
+      destination: 'Jupiter',
+      pricePerSeat: 300,
+      status: 'aborted',
+    },
   ];
 
-  getNextLaunches$(): Observable<LaunchDto[]> {
-    return of(this.launches).pipe(delay(2000));
+  getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
+    return of(this.launches.filter((launch) => launch.status === status)).pipe(delay(2000));
   }
 }

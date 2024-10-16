@@ -1,13 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { LaunchDto, LaunchStatus } from '../models/launch.dto';
 
 // npm run ng -- g s shared/services/launches-repository
 
-@Injectable({
-  providedIn: 'root',
-})
-export class LaunchesRepository {
+@Injectable()
+export abstract class LaunchesAbstractRepository {
+  abstract getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]>;
+}
+
+@Injectable()
+export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
   private readonly launches: LaunchDto[] = [
     {
       id: '1',
@@ -43,5 +47,15 @@ export class LaunchesRepository {
 
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
     return of(this.launches.filter((launch) => launch.status === status)).pipe(delay(2000));
+  }
+}
+
+@Injectable()
+export class LaunchesRestRepository extends LaunchesAbstractRepository {
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
+  getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
+    return this.httpClient.get<LaunchDto[]>('http://ecample/v4/launches');
   }
 }

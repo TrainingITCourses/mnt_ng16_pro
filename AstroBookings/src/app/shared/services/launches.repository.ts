@@ -11,7 +11,6 @@ export abstract class LaunchesAbstractRepository {
   abstract getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]>;
 }
 
-@Injectable()
 export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
   private readonly launches: LaunchDto[] = [
     {
@@ -51,7 +50,6 @@ export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
   }
 }
 
-@Injectable()
 export class LaunchesRestRepository extends LaunchesAbstractRepository {
   private readonly apiUrl = `${environment.apiUrl}/launches`;
   constructor(private httpClient: HttpClient) {

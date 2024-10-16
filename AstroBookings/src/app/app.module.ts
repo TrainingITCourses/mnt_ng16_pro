@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
   LaunchesAbstractRepository,
   LaunchesMemoryRepository,
@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
-  imports: [AppRoutingModule, BrowserModule, CoreModule],
+  imports: [AppRoutingModule, BrowserModule, CoreModule, HttpClientModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   providers: [

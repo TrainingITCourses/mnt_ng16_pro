@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment.development';
 import { delay, Observable, of } from 'rxjs';
 import { LaunchDto, LaunchStatus } from '../models/launch.dto';
 
@@ -52,10 +53,11 @@ export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
 
 @Injectable()
 export class LaunchesRestRepository extends LaunchesAbstractRepository {
+  private readonly apiUrl = `${environment.apiUrl}/launches`;
   constructor(private httpClient: HttpClient) {
     super();
   }
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
-    return this.httpClient.get<LaunchDto[]>('http://ecample/v4/launches');
+    return this.httpClient.get<LaunchDto[]>(`${this.apiUrl}?q=${status}`);
   }
 }

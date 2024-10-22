@@ -1,6 +1,20 @@
 <section>
   <h2>Next {{ nextLaunches.length }} Launches</h2>
-  <div role="group">
-    <app-button *ngFor="let launch of nextLaunches" caption="🚀 {{ launch.mission }}"></app-button>
-  </div>
+  <section
+    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(512px, 1fr)); gap: 16px"
+  >
+    <article *ngFor="let launch of nextLaunches">
+      <header>
+        <h3>{{ launch.mission }}</h3>
+        <p>{{ launch.destination }}</p>
+      </header>
+      <div>
+        <p>{{ launch.date | date : 'dd MMM yyyy' }}</p>
+        <p>{{ launch.pricePerSeat | currency : 'USD' : 'symbol' : '1.0-0' }}</p>
+      </div>
+      <footer>
+        <app-button caption="🚀"></app-button>
+      </footer>
+    </article>
+  </section>
 </section>

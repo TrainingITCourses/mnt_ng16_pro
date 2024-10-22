@@ -1,8 +1,11 @@
-import { UserDto } from './user.dto';
-
-export interface TravelerDto extends UserDto {
+export interface TravelerDto {
+  id: string;
   contactPhone: string;
   contactEmail: string;
   emergencyContact: string;
-  travelPreferences: Record<string, unknown>;
+  travelPreferences: {
+    preferredDestination: string;
+    dietaryRestrictions?: string;
+    medicalConditions?: string;
+  };
 }

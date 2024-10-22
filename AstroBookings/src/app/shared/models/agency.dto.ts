@@ -1,6 +1,5 @@
-import { UserDto } from './user.dto';
-
-export interface AgencyDto extends UserDto {
+export interface AgencyDto {
+  id: string;
   description: string;
   contactInfo: string;
   contactEmail: string;

@@ -4,13 +4,19 @@ import { environment } from 'environments/environment.development';
 import { delay, Observable, of } from 'rxjs';
 import { LaunchDto, LaunchStatus } from '../models/launch.dto';
 
-// npm run ng -- g s shared/services/launches-repository
-
+/**
+ * Launches Repository, provides methods to get launches
+ * - Abstract class to provide a common interface for all launches repositories
+ */
 @Injectable()
 export abstract class LaunchesAbstractRepository {
   abstract getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]>;
 }
 
+/**
+ * Launches Memory Repository, provides methods to get launches from memory
+ * - Used for testing purposes
+ */
 export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
   private readonly launches: LaunchDto[] = [
     {
@@ -50,11 +56,20 @@ export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
   }
 }
 
+/**
+ * Launches Rest Repository, provides methods to get launches from the REST API
+ * @requires HttpClient
+ */
 export class LaunchesRestRepository extends LaunchesAbstractRepository {
   private readonly apiUrl = `${environment.apiUrl}/launches`;
   constructor(private httpClient: HttpClient) {
     super();
   }
+  /**
+   * Gets launches by status
+   * @param status - The status of the launches to get
+   * @returns - An observable that emits the launches
+   */
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
     return this.httpClient.get<LaunchDto[]>(`${this.apiUrl}?q=${status}`);
   }

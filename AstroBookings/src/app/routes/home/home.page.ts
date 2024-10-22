@@ -4,6 +4,12 @@ import { LOG_SOURCE, LogService } from '@app/services/log.service';
 import { Observable } from 'rxjs';
 import { HomeService } from './home.service';
 
+/**
+ * Home Page, displays the home page
+ * @requires HomeService to load the next launches
+ * @requires LogService to log changes
+ * @requires LOG_SOURCE to identify the source of the log
+ */
 @Component({
   templateUrl: './home.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

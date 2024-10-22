@@ -1,7 +1,13 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-
+/**
+ * Injection Token for the Log Source, used to identify the source of the log
+ */
 export const LOG_SOURCE = new InjectionToken<string>('LOG_SOURCE');
 
+/**
+ * Log Service, logs messages to the console
+ * @param source - The source of the log, defaults to 'Unknown'
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -16,8 +22,13 @@ export class LogService {
     console.log(`[${this.source}] ${message}`);
   }
 
-  error(message: string): void {
-    console.error(`[${this.source}] ${message}`);
+  error(message: string | Error): void {
+    try {
+      const errorJson = JSON.stringify(message);
+      console.error(`[${this.source}] ${errorJson}`);
+    } catch (error) {
+      console.error(`[${this.source}] ${message}`);
+    }
   }
 
   warn(message: string): void {

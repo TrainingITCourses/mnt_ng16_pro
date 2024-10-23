@@ -1,0 +1,6 @@
+<ng-container *ngIf="launch$ | async as launch">
+  <h1>{{ launch.mission}}</h1>
+  <app-launch-details [launch]="launch"></app-launch-details>
+</ng-container>
+<aside *ngIf="isWorking$ | async" aria-busy="true">Loading...</aside>
+<input *ngIf="error$ | async as error" readonly [value]="error" aria-invalid="true" />

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment.development';
-import { delay, Observable, of } from 'rxjs';
+import { delay, Observable, of, throwError } from 'rxjs';
 import { LaunchDto, LaunchStatus } from '../models/launch.dto';
 
 /**
@@ -11,6 +11,7 @@ import { LaunchDto, LaunchStatus } from '../models/launch.dto';
 @Injectable()
 export abstract class LaunchesAbstractRepository {
   abstract getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]>;
+  abstract getLaunchById$(id: string): Observable<LaunchDto>;
 }
 
 /**
@@ -54,6 +55,14 @@ export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
     return of(this.launches.filter((launch) => launch.status === status)).pipe(delay(2000));
   }
+
+  getLaunchById$(id: string): Observable<LaunchDto> {
+    const foundLaunch = this.launches.find((launch) => launch.id === id);
+    if (foundLaunch) {
+      return of(foundLaunch);
+    }
+    return throwError(() => new Error('Launch not found'));
+  }
 }
 
 /**
@@ -61,8 +70,8 @@ export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
  * @requires HttpClient
  */
 export class LaunchesRestRepository extends LaunchesAbstractRepository {
-  private readonly apiUrl = `${environment.apiUrl}/launches`;
-  constructor(private httpClient: HttpClient) {
+  private readonly baseUrl = `${environment.apiUrl}/launches`;
+  constructor(private http: HttpClient) {
     super();
   }
   /**
@@ -71,6 +80,20 @@ export class LaunchesRestRepository extends LaunchesAbstractRepository {
    * @returns - An observable that emits the launches
    */
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
-    return this.httpClient.get<LaunchDto[]>(`${this.apiUrl}?q=${status}`);
+    const forcedDelay = '&delay=1000'; // '&delay=1000';
+    const forcedStatus = ''; //'&status=418';
+    const forcedEmpty = ''; // 'kk';
+    const url = `${this.baseUrl}?q=${status}${forcedEmpty}${forcedDelay}${forcedStatus}`;
+    console.log('getLaunchesByStatus$ with ', url);
+    return this.http.get<LaunchDto[]>(url);
+  }
+
+  getLaunchById$(id: string): Observable<LaunchDto> {
+    const forcedDelay = '&delay=1000'; // '&delay=1000';
+    const forcedStatus = ''; //'&status=418';
+    const forcedEmpty = ''; // 'kk';
+    const url = `${this.baseUrl}/${id}${forcedEmpty}?${forcedDelay}${forcedStatus}`;
+    console.log('getLaunchById$ with ', url);
+    return this.http.get<LaunchDto>(url);
   }
 }

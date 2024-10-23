@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./routes/register/register.module').then((m) => m.RegisterModule),
   },
+  {
+    path: 'launches',
+    loadChildren: () => import('./routes/launches/launches.module').then((m) => m.LaunchesModule),
+  },
 ];
 
 @NgModule({

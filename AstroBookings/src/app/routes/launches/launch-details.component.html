@@ -1,0 +1,6 @@
+<article>
+  <h2>{{ launch.destination }}</h2>
+  <p>Date: {{ launch.date | date : 'dd MMM yyyy' }}</p>
+  <p>Price per seat: {{ launch.pricePerSeat | currency : 'USD' : 'symbol' : '1.0-0' }}</p>
+  <p>Status: {{ launch.status }}</p>
+</article>

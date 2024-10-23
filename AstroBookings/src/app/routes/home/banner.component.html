@@ -13,7 +13,7 @@
         <p>{{ launch.pricePerSeat | currency : 'USD' : 'symbol' : '1.0-0' }}</p>
       </div>
       <footer>
-        <app-button caption="🚀"></app-button>
+        <app-link text="🚀 Go!" [link]="['/', 'launches', launch.id]"></app-link>
       </footer>
     </article>
   </section>

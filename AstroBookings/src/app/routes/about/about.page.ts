@@ -5,6 +5,7 @@ import { AboutService } from './about.service';
 @Component({
   templateUrl: './about.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LogService],
 })
 export class AboutPage {
   aboutInfo: string;

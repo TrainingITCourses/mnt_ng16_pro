@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { LogService } from '@app/services/log.service';
 
 @Component({
   selector: 'app-about-content',
@@ -7,4 +8,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class AboutContentComponent {
   @Input() info: string = '';
+  constructor(private readonly logService: LogService) {
+    this.logService.log('AboutContentComponent initialized');
+  }
 }

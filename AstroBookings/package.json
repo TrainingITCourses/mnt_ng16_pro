@@ -13,7 +13,8 @@
   "homepage": "https://albertobasalo.notion.site/Angular-Pro-V15-ef404debd5d244dca1a65588b32f4cdb",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "chrome": "start chrome -incognito -auto-open-devtools-for-tabs http://localhost:4216",
+    "start": "npm run chrome && ng serve --port 4216",
     "build": "ng build",
     "build:stats": "ng build --stats-json",
     "watch": "ng build --watch --configuration development",

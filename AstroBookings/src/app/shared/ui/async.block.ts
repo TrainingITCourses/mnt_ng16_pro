@@ -4,9 +4,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 @Component({
   selector: 'app-async',
   template: `
-    <ng-container *ngIf="data$ | async as dataResult">
-      <ng-container *ngTemplateOutlet="dataTemplate; context: { $implicit: dataResult }">
-      </ng-container>
+    <ng-container *ngIf="data$ | async as data">
+      <ng-container *ngTemplateOutlet="template; context: { $implicit: data }"> </ng-container>
     </ng-container>
     <aside *ngIf="isWorking$ | async" aria-busy="true">Loading...</aside>
     <input *ngIf="error$ | async as error" readonly [value]="error" aria-invalid="true" />
@@ -14,7 +13,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class AsyncBlock implements OnChanges {
   @Input() source$!: Observable<unknown>;
-  @Input() dataTemplate!: TemplateRef<unknown>;
+  @Input() template!: TemplateRef<unknown>;
   data$!: Observable<unknown>;
   isWorking$ = new BehaviorSubject<boolean>(false);
   error$ = new BehaviorSubject<string | undefined>(undefined);

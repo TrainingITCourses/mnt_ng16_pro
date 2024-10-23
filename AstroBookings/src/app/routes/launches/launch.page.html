@@ -1,4 +1,4 @@
-<app-async [source$]="source$" [dataTemplate]="template">
+<app-async [source$]="source$" [template]="template">
   <ng-template #template let-data>
     <h1>{{ data.mission}}</h1>
     <app-launch-details [launch]="data"></app-launch-details>

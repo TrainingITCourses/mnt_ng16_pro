@@ -8,11 +8,11 @@
 <!-- <aside *ngIf="isWorking$ | async" aria-busy="true">Loading...</aside>
 <input *ngIf="error$ | async as error" readonly [value]="error" aria-invalid="true" /> -->
 
-<app-async [source$]="nextLaunches$" [dataTemplate]="template">
+<app-async [source$]="nextLaunches$" [template]="template">
   <ng-template #template let-data>
-    <app-banner *ngIf="data; else empty" [nextLaunches]="data"></app-banner>
-    <ng-template #empty>
+    <app-banner [nextLaunches]="data"></app-banner>
+    <!-- <ng-template #empty>
       <input readonly type="text" name="empty" value="No data found" />
-    </ng-template>
+    </ng-template> -->
   </ng-template>
 </app-async>

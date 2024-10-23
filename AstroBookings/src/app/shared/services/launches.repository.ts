@@ -80,7 +80,7 @@ export class LaunchesRestRepository extends LaunchesAbstractRepository {
    * @returns - An observable that emits the launches
    */
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
-    const forcedDelay = '&delay=1000'; // '&delay=1000';
+    const forcedDelay = '&delay=2000'; // '&delay=1000';
     const forcedStatus = ''; //'&status=418';
     const forcedEmpty = ''; // 'kk';
     const url = `${this.baseUrl}?q=${status}${forcedEmpty}${forcedDelay}${forcedStatus}`;

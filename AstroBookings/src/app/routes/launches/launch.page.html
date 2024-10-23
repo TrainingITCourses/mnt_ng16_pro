@@ -1,6 +1,6 @@
-<ng-container *ngIf="launch$ | async as launch">
-  <h1>{{ launch.mission}}</h1>
-  <app-launch-details [launch]="launch"></app-launch-details>
-</ng-container>
-<aside *ngIf="isWorking$ | async" aria-busy="true">Loading...</aside>
-<input *ngIf="error$ | async as error" readonly [value]="error" aria-invalid="true" />
+<app-async [source$]="source$" [dataTemplate]="template">
+  <ng-template #template let-data>
+    <h1>{{ data.mission}}</h1>
+    <app-launch-details [launch]="data"></app-launch-details>
+  </ng-template>
+</app-async>

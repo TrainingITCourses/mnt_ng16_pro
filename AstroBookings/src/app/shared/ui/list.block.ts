@@ -7,7 +7,8 @@ import { Component, Input, TemplateRef } from '@angular/core';
       <ng-content></ng-content>
       <section [style]="listStyle">
         <ng-container *ngFor="let item of data">
-          <ng-container *ngTemplateOutlet="template; context: { $implicit: item }"> </ng-container>
+          <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
+          </ng-container>
         </ng-container>
       </section>
     </ng-container>
@@ -18,7 +19,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 })
 export class ListBlock {
   @Input() data!: unknown[];
-  @Input() template!: TemplateRef<unknown>;
+  @Input() itemTemplate!: TemplateRef<unknown>;
   @Input() listStyle =
     'display: grid; grid-template-columns: repeat(auto-fill, minmax(512px, 1fr)); gap: 16px';
 }

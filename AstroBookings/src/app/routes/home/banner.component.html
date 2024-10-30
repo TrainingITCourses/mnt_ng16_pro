@@ -1,9 +1,9 @@
 <section>
-  <app-list [data]="nextLaunches" [template]="template">
+  <app-list [data]="nextLaunches" [itemTemplate]="itemLaunchTemplate">
     <h2>Next {{ nextLaunches.length }} Launches</h2>
   </app-list>
 </section>
-<ng-template #template let-launch>
+<ng-template #itemLaunchTemplate let-launch>
   <article>
     <header>
       <h3>{{ launch.mission }}</h3>

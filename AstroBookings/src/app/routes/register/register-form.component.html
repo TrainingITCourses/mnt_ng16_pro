@@ -22,7 +22,7 @@
       formControlName="password"
       [attr.aria-invalid]="password.invalid"
     />
-    <small *ngIf="mustDisplayError(password)" class="error">{{ getDisplayError(password) }}</small>
+    <small *ngIf="mustDisplayError(password)">{{ getDisplayError(password) }}</small>
   </div>
   <div>
     <label for="password">Repeat Password:</label>

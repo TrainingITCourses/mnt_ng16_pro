@@ -11,7 +11,7 @@ export class LoginFormComponent {
   @Output() login = new EventEmitter<void>();
 
   loginForm = this.formBuilder.group({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('a@b.c', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(4),

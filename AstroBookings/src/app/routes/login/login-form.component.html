@@ -1,9 +1,10 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div>
+  <!-- <div>
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email" [attr.aria-invalid]="email.invalid" />
     <small *ngIf="mustDisplayError(email)" class="error">{{ getDisplayError(email) }}</small>
-  </div>
+  </div> -->
+  <app-control label="Email" type="email" formControlName="email"></app-control>
   <div>
     <label for="password">Password:</label>
     <input
@@ -16,3 +17,4 @@
   </div>
   <button type="submit" [disabled]="loginForm.invalid">Login</button>
 </form>
+<pre>{{ loginForm.value | json }}</pre>

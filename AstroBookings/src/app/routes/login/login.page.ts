@@ -8,8 +8,8 @@ import { LoginService } from './login.service';
 export class LoginPage {
   constructor(private readonly loginService: LoginService) {}
 
-  onLogin(username: string, password: string): void {
-    const success = this.loginService.login(username, password);
+  onLogin(): void {
+    const success = this.loginService.login('username', 'password');
     if (success) {
       console.log('Login successful');
       // Here you would typically navigate to another page or update the UI

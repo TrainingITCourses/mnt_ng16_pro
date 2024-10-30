@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { passwordValidator } from 'app/shared/utils/form.validators';
 
 @Component({
   selector: 'app-login-form',
@@ -7,16 +8,44 @@ import { FormBuilder, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
-  @Output() login = new EventEmitter<{ username: string; password: string }>();
+  @Output() login = new EventEmitter<void>();
 
   loginForm = this.formBuilder.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      passwordValidator,
+    ]),
   });
+
+  get email(): FormControl {
+    return this.loginForm.get('email') as FormControl;
+  }
+
+  get password(): FormControl {
+    return this.loginForm.get('password') as FormControl;
+  }
+
+  mustDisplayError(control: FormControl): boolean {
+    return control.invalid && control.touched;
+  }
+
+  getDisplayError(control: FormControl): string {
+    if (control.hasError('required')) {
+      return 'This field is required';
+    } else if (control.hasError('email')) {
+      return 'Invalid email';
+    } else if (control.hasError('minlength')) {
+      return 'Password must be at least 4 characters';
+    } else {
+      return JSON.stringify(control.errors);
+    }
+  }
 
   constructor(private readonly formBuilder: FormBuilder) {}
 
-  onSubmit(username: string, password: string): void {
-    this.login.emit({ username, password });
+  onSubmit(): void {
+    this.login.emit();
   }
 }

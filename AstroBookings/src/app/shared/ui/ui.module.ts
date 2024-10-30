@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AsyncBlock } from './async.block';
 import { ButtonAtom } from './button.atom';
@@ -9,7 +10,7 @@ import { PageHeaderBlock } from './page-header.block';
 
 @NgModule({
   declarations: [LinkAtom, PageHeaderBlock, ButtonAtom, AsyncBlock, ListBlock],
-  imports: [CommonModule, RouterModule],
-  exports: [LinkAtom, PageHeaderBlock, ButtonAtom, AsyncBlock, ListBlock],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  exports: [LinkAtom, PageHeaderBlock, ButtonAtom, AsyncBlock, ListBlock, ReactiveFormsModule],
 })
 export class UiModule {}

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LaunchDto } from '@app/models/launch.dto';
 import { LOG_SOURCE, LogService } from '@app/services/log.service';
-import { Observable } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import { HomeService } from './home.service';
 
 /**
@@ -23,13 +24,25 @@ import { HomeService } from './home.service';
 })
 export class HomePage {
   nextLaunches$!: Observable<LaunchDto[]>;
-
-  constructor(private readonly homeService: HomeService, private readonly logService: LogService) {
+  currentSearchTerm: string = '';
+  constructor(
+    private readonly homeService: HomeService,
+    private readonly logService: LogService,
+    private readonly router: Router,
+    activatedRoute: ActivatedRoute,
+  ) {
     this.logService.log('HomePage loaded');
-    this.nextLaunches$ = this.homeService.loadNextLaunches$();
+    this.nextLaunches$ = activatedRoute.queryParams.pipe(
+      map((params) => params['q'] || ''),
+      tap((q) => (this.currentSearchTerm = q)),
+      switchMap((q) => this.homeService.loadNextLaunches$(q)),
+    );
   }
 
   onSearch(term: string) {
+    if (typeof term !== 'string') return;
     this.logService.log('Page: Searching for: ' + term);
+    //this.nextLaunches$ = this.homeService.loadNextLaunches$(term);
+    this.router.navigate([], { queryParams: { q: term } });
   }
 }

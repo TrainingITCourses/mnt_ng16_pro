@@ -7,4 +7,5 @@ export interface BookingDto {
   numberOfSeats: number;
   totalPrice: number;
   status: BookingStatus;
+  passengers: string[];
 }

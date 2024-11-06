@@ -4,8 +4,8 @@
     <input type="email" id="email" formControlName="email" [attr.aria-invalid]="email.invalid" />
     <small *ngIf="mustDisplayError(email)" class="error">{{ getDisplayError(email) }}</small>
   </div> -->
-  <app-control label="Email" type="email" formControlName="email"></app-control>
-  <div>
+  <app-control label="Email" type="email" formControlName="email" [form]="loginForm"></app-control>
+  <!-- <div>
     <label for="password">Password:</label>
     <input
       type="password"
@@ -14,7 +14,13 @@
       [attr.aria-invalid]="password.invalid"
     />
     <small *ngIf="mustDisplayError(password)" class="error">{{ getDisplayError(password) }}</small>
-  </div>
+  </div> -->
+  <app-control
+    label="Password"
+    type="password"
+    formControlName="password"
+    [form]="loginForm"
+  ></app-control>
   <button type="submit" [disabled]="loginForm.invalid">Login</button>
 </form>
 <pre>{{ loginForm.value | json }}</pre>

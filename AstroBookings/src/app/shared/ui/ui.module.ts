@@ -8,9 +8,18 @@ import { ControlBlock } from './control.block';
 import { LinkAtom } from './link.atom';
 import { ListBlock } from './list.block';
 import { PageHeaderBlock } from './page-header.block';
+import { SearchBlock } from './search.block';
 
 @NgModule({
-  declarations: [ControlBlock, LinkAtom, PageHeaderBlock, ButtonAtom, AsyncBlock, ListBlock],
+  declarations: [
+    ControlBlock,
+    LinkAtom,
+    PageHeaderBlock,
+    ButtonAtom,
+    AsyncBlock,
+    ListBlock,
+    SearchBlock,
+  ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [
     ControlBlock,
@@ -20,6 +29,7 @@ import { PageHeaderBlock } from './page-header.block';
     AsyncBlock,
     ListBlock,
     ReactiveFormsModule,
+    SearchBlock,
   ],
 })
 export class UiModule {}

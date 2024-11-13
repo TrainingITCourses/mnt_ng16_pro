@@ -32,9 +32,12 @@ export class HomePage {
     activatedRoute: ActivatedRoute,
   ) {
     this.logService.log('HomePage loaded');
+    // set the next launches observable to the home service
+    // first get the search term from the url query params
     this.nextLaunches$ = activatedRoute.queryParams.pipe(
       map((params) => params['q'] || ''),
       tap((q) => (this.currentSearchTerm = q)),
+      // switchMap to cancel previous requests when a new search term is emitted
       switchMap((q) => this.homeService.loadNextLaunches$(q)),
     );
   }

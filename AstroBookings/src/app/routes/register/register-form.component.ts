@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import {
-  EmailAsyncValidator,
-  matchPasswordValidator,
-  passwordValidator,
-} from 'app/shared/utils/form.validators';
+import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { EmailAsyncValidator, matchPasswordValidator } from 'app/shared/utils/form.validators';
+import { RegisterDto } from './register.dto';
 
 @Component({
   selector: 'app-register-form',
@@ -12,62 +9,61 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
-  @Output() register = new EventEmitter<{ username: string; email: string; password: string }>();
+  @Output() register = new EventEmitter<RegisterDto>();
 
   registerForm = this.formBuilder.group(
     {
-      username: new FormControl('', { validators: [Validators.required] }),
+      username: new FormControl('A', [Validators.required, Validators.minLength(3)]),
       email: [
         '',
         {
           validators: [Validators.required, Validators.email],
-          asyncValidators: [this.emailAsyncValidator.validate],
+          asyncValidators: [this.emailValidators.validate],
           updateOn: 'blur',
         },
       ],
-      password: ['', [Validators.required, Validators.minLength(4), passwordValidator]],
-      repeatPassword: new FormControl('', { validators: [] }),
+      password: new FormControl('', Validators.required),
+      repeatPassword: new FormControl('', Validators.required),
+      acceptTerms: new FormControl(false, Validators.requiredTrue),
+      role: new FormControl('it'),
     },
-    { validators: [matchPasswordValidator] },
+    {
+      validators: [matchPasswordValidator],
+    },
   );
 
-  get username(): FormControl {
-    return this.registerForm.get('username') as FormControl;
+  get username(): AbstractControl {
+    return this.registerForm.get('username')!;
   }
 
-  get email(): FormControl {
-    return this.registerForm.get('email') as FormControl;
+  get email(): AbstractControl {
+    return this.registerForm.get('email')!;
   }
 
-  get password(): FormControl {
-    return this.registerForm.get('password') as FormControl;
+  get password(): AbstractControl {
+    return this.registerForm.get('password')!;
   }
 
-  get repeatPassword(): FormControl {
-    return this.registerForm.get('repeatPassword') as FormControl;
+  get repeatPassword(): AbstractControl {
+    return this.registerForm.get('repeatPassword')!;
   }
 
-  mustDisplayError(control: FormControl): boolean {
-    return control.invalid && control.touched;
+  get acceptTerms(): AbstractControl {
+    return this.registerForm.get('acceptTerms')!;
   }
-  getDisplayError(control: FormControl): string {
-    if (control.hasError('required')) {
-      return 'This field is required';
-    } else if (control.hasError('email')) {
-      return 'Invalid email';
-    } else if (control.hasError('minlength')) {
-      return 'Password must be at least 4 characters';
-    } else {
-      return JSON.stringify(control.errors);
-    }
+
+  get role(): AbstractControl {
+    return this.registerForm.get('role')!;
   }
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly emailAsyncValidator: EmailAsyncValidator,
+    private readonly emailValidators: EmailAsyncValidator,
   ) {}
 
   onSubmit(): void {
-    this.register.emit({ username: '2', email: '', password: '' });
+    const { repeatPassword, ...rest } = this.registerForm.value;
+    console.log('onSubmit', rest);
+    this.register.emit(rest as RegisterDto);
   }
 }

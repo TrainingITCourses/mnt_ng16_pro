@@ -1,5 +1,5 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div>
+  <!--  <div>
     <label for="username">Username:</label>
     <input
       type="text"
@@ -7,14 +7,14 @@
       formControlName="username"
       [attr.aria-invalid]="username.invalid"
     />
-    <small *ngIf="mustDisplayError(username)" class="error">{{ getDisplayError(username) }}</small>
-  </div>
-  <div>
+  </div> -->
+  <app-control [form]="registerForm" formControlName="username" />
+  <!-- <div>
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email" [attr.aria-invalid]="email.invalid" />
-    <small *ngIf="mustDisplayError(email)" class="error">{{ getDisplayError(email) }}</small>
-  </div>
-  <div>
+  </div> -->
+  <app-control [form]="registerForm" formControlName="email" type="email" />
+  <!--   <div>
     <label for="password">Password:</label>
     <input
       type="password"
@@ -22,20 +22,19 @@
       formControlName="password"
       [attr.aria-invalid]="password.invalid"
     />
-    <small *ngIf="mustDisplayError(password)">{{ getDisplayError(password) }}</small>
-  </div>
-  <div>
-    <label for="password">Repeat Password:</label>
+    <small *ngIf="password.invalid">{{ password.errors | json }}</small>
+  </div> -->
+  <app-control [form]="registerForm" formControlName="password" type="password" />
+  <!--   <div>
+    <label for="repeatPassword">Repeat Password:</label>
     <input
       type="password"
       id="repeatPassword"
       formControlName="repeatPassword"
       [attr.aria-invalid]="repeatPassword.invalid"
     />
-    <small *ngIf="mustDisplayError(repeatPassword)" class="error">{{
-      getDisplayError(repeatPassword)
-    }}</small>
-  </div>
-  <pre>{{ registerForm.value | json }}</pre>
+    <small *ngIf="repeatPassword.invalid">{{ repeatPassword.errors | json }}</small>
+  </div> -->
+  <app-control [form]="registerForm" formControlName="repeatPassword" type="password" />
   <button type="submit" [disabled]="registerForm.invalid">Register</button>
 </form>

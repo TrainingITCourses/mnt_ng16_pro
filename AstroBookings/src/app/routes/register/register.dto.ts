@@ -1,4 +1,4 @@
-import { Role } from './role.enum';
+import { Role } from '@app/models/role.enum';
 
 /**
  * The input data required to register a new user

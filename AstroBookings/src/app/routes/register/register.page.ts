@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { exhaustMap, Subject } from 'rxjs';
 import { RegisterDto } from './register.dto';
 import { RegisterService } from './register.service';
 
@@ -7,10 +8,17 @@ import { RegisterService } from './register.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPage {
-  constructor(private readonly registerService: RegisterService) {}
+  private registerSubject = new Subject<RegisterDto>();
+
+  constructor(private readonly registerService: RegisterService) {
+    this.registerSubject
+      .pipe(exhaustMap((registerDto: RegisterDto) => this.registerService.register$(registerDto)))
+      .subscribe();
+  }
 
   onRegister(registerDto: RegisterDto): void {
     console.log('onRegister', registerDto);
-    this.registerService.register$(registerDto).subscribe((res) => console.log(res));
+    this.registerSubject.next(registerDto);
+    //this.registerService.register$(registerDto).subscribe((res) => console.log(res));
   }
 }

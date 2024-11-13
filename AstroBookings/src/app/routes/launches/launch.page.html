@@ -1,6 +1,8 @@
 <app-async [source$]="launch$" [template]="template">
   <ng-template #template let-data>
     <pre>Agency: {{ agency$ | async | json }}</pre>
+    <pre>Rocket and Bookings: {{ rocketWithBookings$ | async | json }}</pre>
+    <pre>Available Seats: {{ availableSeats$ | async }}</pre>
     <h1>{{ data.mission}}</h1>
     <app-launch-details [launch]="data"></app-launch-details>
     <app-bookings-form [launch]="data"></app-bookings-form>

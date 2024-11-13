@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, mergeMap, Observable } from 'rxjs';
 
 import { AgencyDto } from '@app/models/agency.dto';
 import { BookingDto } from '@app/models/booking.dto';
 import { LaunchDto } from '@app/models/launch.dto';
+import { PassengerDto } from '@app/models/passenger.dto';
 import { RocketDto } from '@app/models/rocket.dto';
 import { AgenciesRepository } from '@app/services/agencies.repository';
 import { BookingsRepository } from '@app/services/bookings.repository';
@@ -37,5 +38,15 @@ export class LaunchService {
 
   getBookingsByLaunchId$(launchId: string): Observable<BookingDto[]> {
     return this.bookingsRepository.getByLaunchId$(launchId);
+  }
+
+  loadPassengersByIdArray$(passengersId: string[]): Observable<PassengerDto> {
+    return from(passengersId).pipe(
+      mergeMap((passengerId) => this.passengersRepository.getById$(passengerId)),
+    );
+  }
+
+  getPassengersById$(passengerId: string): Observable<PassengerDto> {
+    return this.passengersRepository.getById$(passengerId);
   }
 }

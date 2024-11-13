@@ -3,6 +3,11 @@
     <pre>Agency: {{ agency$ | async | json }}</pre>
     <pre>Rocket and Bookings: {{ rocketWithBookings$ | async | json }}</pre>
     <pre>Available Seats: {{ availableSeats$ | async }}</pre>
+    <pre>{{passengersId$ | async | json}}</pre>
+    <p>Passenger list</p>
+    <div *ngFor="let passenger of passengers">
+      <pre>{{ passenger | json }}</pre>
+    </div>
     <h1>{{ data.mission}}</h1>
     <app-launch-details [launch]="data"></app-launch-details>
     <app-bookings-form [launch]="data"></app-bookings-form>

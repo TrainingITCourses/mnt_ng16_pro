@@ -23,7 +23,8 @@
     "paths": {
       "@app/ui/*": ["app/shared/ui/*"],
       "@app/models/*": ["app/shared/models/*"],
-      "@app/services/*": ["app/shared/services/*"]
+      "@app/services/*": ["app/shared/services/*"],
+      "@app/env/*": ["environments/*"]
     }
   },
   "angularCompilerOptions": {

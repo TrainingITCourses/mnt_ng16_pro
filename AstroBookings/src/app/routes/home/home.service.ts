@@ -14,6 +14,11 @@ import { map, Observable } from 'rxjs';
 export class HomeService {
   constructor(private readonly launchesRepository: LaunchesAbstractRepository) {}
 
+  /**
+   * Get the next launches filtered by the search term and status
+   * @param searchTerm The search term to filter the launches
+   * @returns An observable of an array of LaunchDto
+   */
   loadNextLaunches$(searchTerm: string): Observable<LaunchDto[]> {
     console.log('Service, Searching for: ' + searchTerm);
     return this.launchesRepository
@@ -21,12 +26,12 @@ export class HomeService {
       .pipe(map((launches) => this.filterBySearchTerm(launches, searchTerm)));
   }
 
-  filterBySearchTerm(launches: LaunchDto[], searchTerm: string): LaunchDto[] {
+  private filterBySearchTerm(launches: LaunchDto[], searchTerm: string): LaunchDto[] {
     if (!searchTerm) return launches;
     return launches.filter((launch) => this.bySearchTerm(launch, searchTerm));
   }
 
-  bySearchTerm(launch: LaunchDto, searchTerm: string) {
+  private bySearchTerm(launch: LaunchDto, searchTerm: string) {
     const mission = launch.mission.toLowerCase();
     const destination = launch.destination.toLowerCase();
     const termsArray = [mission, destination];

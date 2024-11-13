@@ -8,7 +8,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, map, tap } from 'rxjs';
-
+/**
+ * Search Block, displays a search input
+ * - Emits the search term when the user types under certain conditions
+ */
 @Component({
   selector: 'app-search',
   template: `
@@ -21,10 +24,18 @@ export class SearchBlock implements AfterViewInit {
 
   @Output() search = new EventEmitter<string>();
 
+  /**
+   * HTML Search Input Element Reference at the View
+   */
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
+  /**
+   * Hook After the View is initialized,
+   * - it subscribes to the input event
+   */
   ngAfterViewInit() {
     const nativeSearch = this.searchInput.nativeElement;
+    // using fromEvent to create an observable from the input event
     const inputSource$ = fromEvent(nativeSearch, 'input');
     inputSource$
       .pipe(

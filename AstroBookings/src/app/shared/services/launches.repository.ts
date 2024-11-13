@@ -77,7 +77,7 @@ export class LaunchesRestRepository extends LaunchesAbstractRepository {
   /**
    * Gets launches by status
    * @param status - The status of the launches to get
-   * @returns - An observable that emits the launches
+   * @returns - An observable that emits the launches array
    */
   getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
     const forcedDelay = ''; // '&delay=1000';
@@ -88,6 +88,11 @@ export class LaunchesRestRepository extends LaunchesAbstractRepository {
     return this.http.get<LaunchDto[]>(url);
   }
 
+  /**
+   * Gets a launch by id
+   * @param id - The id of the launch to get
+   * @returns - An observable that emits the launch
+   */
   getLaunchById$(id: string): Observable<LaunchDto> {
     const forcedDelay = ''; // '&delay=1000';
     const forcedStatus = ''; //'&status=418';

@@ -39,6 +39,8 @@ export class HomePage {
     );
   }
 
+  // event handler for the search block
+
   onSearch(term: string) {
     if (typeof term !== 'string') return;
     this.logService.log('Page: Searching for: ' + term);

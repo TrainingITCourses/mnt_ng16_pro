@@ -13,4 +13,8 @@ export class GlobalStore {
   dispatch(action: GlobalAction): void {
     this.#state$.next(globalReducer(this.#state$.value, action));
   }
+
+  // ToDo: Implement register effect method
 }
+
+// ToDo: Generalize the store to work with any state

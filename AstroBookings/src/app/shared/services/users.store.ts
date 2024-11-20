@@ -30,9 +30,9 @@ export class UsersStore {
     return this.users$.pipe(map(selectFn), distinctUntilChanged());
   }
 
-  dispatch(action: 'login' | 'logout', payload: UserTokenDto | undefined): void {
-    if (action === 'login') {
-      this.login(payload!);
+  dispatch(actionType: 'login' | 'logout', typePayload: UserTokenDto | undefined): void {
+    if (actionType === 'login') {
+      this.login(typePayload!);
     } else {
       this.logout();
     }

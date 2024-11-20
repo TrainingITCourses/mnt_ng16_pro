@@ -10,8 +10,8 @@ import { LaunchDto, LaunchStatus } from '../models/launch.dto';
  */
 @Injectable()
 export abstract class LaunchesAbstractRepository {
-  abstract getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]>;
-  abstract getLaunchById$(id: string): Observable<LaunchDto>;
+  abstract getByStatus$(status: LaunchStatus): Observable<LaunchDto[]>;
+  abstract getById$(id: string): Observable<LaunchDto>;
 }
 
 /**
@@ -52,11 +52,11 @@ export class LaunchesMemoryRepository implements LaunchesAbstractRepository {
     },
   ];
 
-  getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
+  getByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
     return of(this.launches.filter((launch) => launch.status === status)).pipe(delay(2000));
   }
 
-  getLaunchById$(id: string): Observable<LaunchDto> {
+  getById$(id: string): Observable<LaunchDto> {
     const foundLaunch = this.launches.find((launch) => launch.id === id);
     if (foundLaunch) {
       return of(foundLaunch);
@@ -79,7 +79,7 @@ export class LaunchesRestRepository extends LaunchesAbstractRepository {
    * @param status - The status of the launches to get
    * @returns - An observable that emits the launches array
    */
-  getLaunchesByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
+  getByStatus$(status: LaunchStatus): Observable<LaunchDto[]> {
     const forcedDelay = ''; // '&delay=1000';
     const forcedStatus = ''; //'&status=418';
     const forcedEmpty = ''; // 'kk';
@@ -93,8 +93,8 @@ export class LaunchesRestRepository extends LaunchesAbstractRepository {
    * @param id - The id of the launch to get
    * @returns - An observable that emits the launch
    */
-  getLaunchById$(id: string): Observable<LaunchDto> {
-    const forcedDelay = ''; // '&delay=1000';
+  getById$(id: string): Observable<LaunchDto> {
+    const forcedDelay = '&delay=1000'; // '&delay=1000';
     const forcedStatus = ''; //'&status=418';
     const forcedEmpty = ''; // 'kk';
     const url = `${this.baseUrl}/${id}${forcedEmpty}?${forcedDelay}${forcedStatus}`;

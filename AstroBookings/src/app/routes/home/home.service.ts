@@ -22,7 +22,7 @@ export class HomeService {
   loadNextLaunches$(searchTerm: string): Observable<LaunchDto[]> {
     console.log('Service, Searching for: ' + searchTerm);
     return this.launchesRepository
-      .getLaunchesByStatus$('scheduled')
+      .getByStatus$('scheduled')
       .pipe(map((launches) => this.filterBySearchTerm(launches, searchTerm)));
   }
 

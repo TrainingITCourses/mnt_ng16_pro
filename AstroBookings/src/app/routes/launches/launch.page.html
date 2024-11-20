@@ -1,15 +1,16 @@
-<app-async [source$]="launch$" [template]="template">
-  <ng-template #template let-data>
+<app-async [source$]="launch$" [template]="launchTemplate">
+  <ng-template #launchTemplate let-launch>
     <pre>Agency: {{ agency$ | async | json }}</pre>
-    <pre>Rocket and Bookings: {{ rocketWithBookings$ | async | json }}</pre>
+    <pre>Rocket and Bookings: {{ rocketAndBookings$ | async | json }}</pre>
     <pre>Available Seats: {{ availableSeats$ | async }}</pre>
-    <pre>{{passengersId$ | async | json}}</pre>
-    <p>Passenger list</p>
-    <div *ngFor="let passenger of passengers">
-      <pre>{{ passenger | json }}</pre>
-    </div>
-    <h1>{{ data.mission}}</h1>
-    <app-launch-details [launch]="data"></app-launch-details>
-    <app-bookings-form [launch]="data"></app-bookings-form>
+    <pre>PassengersIds: {{ passengersId$ | async | json }}</pre>
+    <ng-container *ngIf="passengersDto$ | async">
+      <div *ngFor="let passenger of passengers">
+        <pre>{{ passenger | json }}</pre>
+      </div>
+    </ng-container>
+    <h1>{{ launch.mission}}</h1>
+    <app-launch-details [launch]="launch"></app-launch-details>
+    <app-bookings-form [launch]="launch"></app-bookings-form>
   </ng-template>
 </app-async>

@@ -18,7 +18,6 @@ export const initialGlobalState: GlobalState = {
   lastApiMs: 0,
   apiStatus: 'idle',
 };
-
 /**
  * The type for the API status
  */
@@ -31,7 +30,6 @@ interface Action {
   type: string;
   payload?: any;
 }
-
 /**
  * Actions related to the user
  */
@@ -39,26 +37,21 @@ interface UserAction extends Action {
   type: 'login' | 'logout';
   payload?: UserTokenDto;
 }
-
 interface ApiLoadingAction extends Action {
   type: 'apiLoading';
 }
-
 interface ApiErrorAction extends Action {
   type: 'apiError';
   payload: string;
 }
-
 interface ApiCompleteAction extends Action {
   type: 'apiComplete';
   payload: number;
 }
-
 /**
  * The union type for all the actions related to the API
  */
 type ApiAction = ApiErrorAction | ApiCompleteAction | ApiLoadingAction;
-
 /**
  * The union type for all the actions that can be dispatched
  */

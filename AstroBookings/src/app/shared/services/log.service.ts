@@ -1,8 +1,9 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+
 /**
  * Injection Token for the Log Source, used to identify the source of the log
  */
-export const LOG_SOURCE = new InjectionToken<string>('LOG_SOURCE');
+export const LOG_SOURCE = new InjectionToken<string>('logSource');
 
 /**
  * Log Service, logs messages to the console
@@ -12,8 +13,6 @@ export const LOG_SOURCE = new InjectionToken<string>('LOG_SOURCE');
   providedIn: 'root',
 })
 export class LogService {
-  //source = 'AstroBookings';
-
   constructor(@Optional() @Inject(LOG_SOURCE) private source: string) {
     this.source = source || 'Unknown';
   }

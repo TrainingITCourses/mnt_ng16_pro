@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { GlobalStore } from '@app/services/global.store';
 import { LaunchesAbstractRepository } from '@app/services/launches.repository';
 import { LocalStorageService } from '@app/services/local-storage.service';
 import { LOG_SOURCE, LogService } from '@app/services/log.service';
@@ -22,6 +23,7 @@ import { LogHttpInterceptor } from './log-http.interceptor';
   imports: [CommonModule, LayoutModule, HttpClientModule],
   exports: [LayoutModule],
   providers: [
+    GlobalStore,
     {
       provide: LaunchesAbstractRepository,
       useFactory: launchesRepositoryFactory,
@@ -45,8 +47,10 @@ import { LogHttpInterceptor } from './log-http.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: LogHttpInterceptor,
       multi: true,
-      deps: [LogService],
+      deps: [LogService, GlobalStore],
     },
   ],
 })
-export class CoreModule {}
+export class CoreModule {
+  constructor(private globalStore: GlobalStore) {}
+}

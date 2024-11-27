@@ -17,10 +17,10 @@ export class UsersStore {
 
   /**
    * Observable that emits the current user
-   * - It is private to prevent external access to the whole subject
+   * - Can be private to prevent external access to the whole subject
    * - Must be used with custom select methods
    */
-  private readonly users$: Observable<UserTokenDto | undefined> = this.#users$.asObservable();
+  readonly users$: Observable<UserTokenDto | undefined> = this.#users$.asObservable();
 
   // The next functions could be implemented using the select method
 
@@ -29,6 +29,7 @@ export class UsersStore {
    */
   readonly selectIsLoggedIn$: Observable<boolean> = this.users$.pipe(
     map((userToken) => !!userToken),
+    distinctUntilChanged(),
   );
 
   /**
@@ -44,6 +45,7 @@ export class UsersStore {
    */
   readonly selectRole$: Observable<string> = this.users$.pipe(
     map((userToken) => userToken?.user.role || ''),
+    distinctUntilChanged(),
   );
 
   /**

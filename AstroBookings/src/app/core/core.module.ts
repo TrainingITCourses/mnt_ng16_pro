@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { GlobalStore } from '@app/services/global.store';
 import { LaunchesAbstractRepository } from '@app/services/launches.repository';
 import { LocalStorageService } from '@app/services/local-storage.service';
@@ -10,6 +11,7 @@ import { CustomErrorHandler } from './cutom-error.handler';
 import { launchesRepositoryFactory } from './launches-repository.factory';
 import { LayoutModule } from './layout/layout.module';
 import { LogHttpInterceptor } from './log-http.interceptor';
+import { RouterStore } from './routes.store';
 
 /**
  * The Core Module configures providers for the entire application
@@ -52,5 +54,16 @@ import { LogHttpInterceptor } from './log-http.interceptor';
   ],
 })
 export class CoreModule {
-  constructor(private globalStore: GlobalStore) {}
+  constructor(routerStore: RouterStore, router: Router) {
+    routerStore.addEffect(
+      (state) => state,
+      (state) => console.log(`🗺️ Navigated to ${state.url} from ${state.previousUrl}`),
+    );
+
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        routerStore.dispatch({ type: 'NAVIGATE', payload: event.url });
+      }
+    });
+  }
 }
